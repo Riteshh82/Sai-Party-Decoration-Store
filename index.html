@@ -1,752 +1,858 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sai Decoration Party</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sai Decoration Party</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden;
-            background: #fefefe;
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+overflow-x: hidden;
+background: #fefefe;
         }
-
-        /* Navigation */
-        nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+/* Navigation */
+nav {
+background: rgba(255, 255, 255, 0.95);
+backdrop-filter: blur(10px);
+padding: 20px 50px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+position: fixed;
+width: 100%;
+top: 0;
+z-index: 1000;
+box-shadow: 0 2px 20px rgba(0,0,0,0.05);
         }
-
-        .logo {
-            font-size: 22px;
-            color: #2d2d2d;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+.logo {
+font-size: 22px;
+color: #2d2d2d;
+font-weight: 600;
+letter-spacing: 0.5px;
+z-index: 1001;
         }
-
-        .nav-links {
-            display: flex;
-            gap: 35px;
-            list-style: none;
+.nav-links {
+display: flex;
+gap: 35px;
+list-style: none;
         }
-
-        .nav-links a {
-            color: #2d2d2d;
-            text-decoration: none;
-            font-size: 15px;
-            transition: color 0.3s;
-            font-weight: 500;
+.nav-links a {
+color: #2d2d2d;
+text-decoration: none;
+font-size: 15px;
+transition: color 0.3s;
+font-weight: 500;
         }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #ff6b9d;
+.nav-links a:hover,
+.nav-links a.active {
+color: #ff6b9d;
         }
-
-        /* Hero Section */
-        .hero {
-            padding-top: 80px;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #fff5f7 0%, #fef3e2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
+.hamburger {
+display: none;
+flex-direction: column;
+cursor: pointer;
+gap: 5px;
+z-index: 1001;
         }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255,182,193,0.3) 0%, transparent 70%);
-            top: -100px;
-            right: -100px;
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
+.hamburger span {
+width: 25px;
+height: 3px;
+background: #2d2d2d;
+border-radius: 3px;
+transition: all 0.3s;
         }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(255,218,185,0.3) 0%, transparent 70%);
-            bottom: -50px;
-            left: -50px;
-            border-radius: 50%;
-            animation: float 8s ease-in-out infinite;
+.hamburger.active span:nth-child(1) {
+transform: rotate(45deg) translate(8px, 8px);
         }
-
-        @keyframes float {
+.hamburger.active span:nth-child(2) {
+opacity: 0;
+        }
+.hamburger.active span:nth-child(3) {
+transform: rotate(-45deg) translate(7px, -7px);
+        }
+/* Hero Section */
+.hero {
+padding-top: 80px;
+min-height: 100vh;
+background: linear-gradient(135deg, #fff5f7 0%, #fef3e2 100%);
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+overflow: hidden;
+        }
+.hero::before {
+content: '';
+position: absolute;
+width: 500px;
+height: 500px;
+background: radial-gradient(circle, rgba(255,182,193,0.3) 0%, transparent 70%);
+top: -100px;
+right: -100px;
+border-radius: 50%;
+animation: float 6s ease-in-out infinite;
+        }
+.hero::after {
+content: '';
+position: absolute;
+width: 400px;
+height: 400px;
+background: radial-gradient(circle, rgba(255,218,185,0.3) 0%, transparent 70%);
+bottom: -50px;
+left: -50px;
+border-radius: 50%;
+animation: float 8s ease-in-out infinite;
+        }
+@keyframes float {
             0%, 100% { transform: translateY(0) scale(1); }
             50% { transform: translateY(-20px) scale(1.05); }
         }
-
-        .hero-content {
-            text-align: center;
-            z-index: 2;
-            max-width: 800px;
-            padding: 40px;
+.hero-content {
+text-align: center;
+z-index: 2;
+max-width: 800px;
+padding: 40px;
         }
-
-        .hero-badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-size: 13px;
-            color: #ff6b9d;
-            font-weight: 600;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.2);
-            animation: fadeInDown 0.8s ease;
+.hero-badge {
+display: inline-block;
+background: rgba(255, 255, 255, 0.9);
+padding: 10px 24px;
+border-radius: 30px;
+font-size: 13px;
+color: #ff6b9d;
+font-weight: 600;
+margin-bottom: 30px;
+box-shadow: 0 4px 15px rgba(255, 107, 157, 0.2);
+animation: fadeInDown 0.8s ease;
         }
-
-        @keyframes fadeInDown {
+@keyframes fadeInDown {
             from {
-                opacity: 0;
-                transform: translateY(-20px);
+opacity: 0;
+transform: translateY(-20px);
             }
             to {
-                opacity: 1;
-                transform: translateY(0);
+opacity: 1;
+transform: translateY(0);
             }
         }
-
-        .hero h1 {
-            font-size: 72px;
-            color: #2d2d2d;
-            margin-bottom: 25px;
-            line-height: 1.1;
-            font-weight: 700;
-            animation: fadeInUp 0.8s ease 0.2s backwards;
+.hero h1 {
+font-size: 72px;
+color: #2d2d2d;
+margin-bottom: 25px;
+line-height: 1.1;
+font-weight: 700;
+animation: fadeInUp 0.8s ease 0.2s backwards;
         }
-
-        @keyframes fadeInUp {
+@keyframes fadeInUp {
             from {
-                opacity: 0;
-                transform: translateY(30px);
+opacity: 0;
+transform: translateY(30px);
             }
             to {
-                opacity: 1;
-                transform: translateY(0);
+opacity: 1;
+transform: translateY(0);
             }
         }
-
-        .hero p {
-            font-size: 20px;
-            color: #666;
-            margin-bottom: 40px;
-            line-height: 1.6;
-            animation: fadeInUp 0.8s ease 0.4s backwards;
+.hero p {
+font-size: 20px;
+color: #666;
+margin-bottom: 40px;
+line-height: 1.6;
+animation: fadeInUp 0.8s ease 0.4s backwards;
         }
-
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            animation: fadeInUp 0.8s ease 0.6s backwards;
+.hero-buttons {
+display: flex;
+gap: 20px;
+justify-content: center;
+animation: fadeInUp 0.8s ease 0.6s backwards;
         }
-
-        .shop-btn {
-            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
-            color: #fff;
-            padding: 18px 45px;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
+.shop-btn {
+background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+color: #fff;
+padding: 18px 45px;
+border: none;
+border-radius: 50px;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s;
+box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
         }
-
-        .shop-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(255, 107, 157, 0.4);
+.shop-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 12px 35px rgba(255, 107, 157, 0.4);
         }
-
-        .explore-btn-hero {
-            background: #fff;
-            color: #2d2d2d;
-            padding: 18px 45px;
-            border: 2px solid #e0e0e0;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
+.explore-btn-hero {
+background: #fff;
+color: #2d2d2d;
+padding: 18px 45px;
+border: 2px solid #e0e0e0;
+border-radius: 50px;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s;
         }
-
-        .explore-btn-hero:hover {
-            border-color: #ff6b9d;
-            color: #ff6b9d;
-            transform: translateY(-2px);
+.explore-btn-hero:hover {
+border-color: #ff6b9d;
+color: #ff6b9d;
+transform: translateY(-2px);
         }
-
-        /* Features Section */
-        .features {
-            padding: 100px 50px;
-            background: #fff;
+/* Features Section */
+.features {
+padding: 100px 50px;
+background: #fff;
         }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
+.features-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 40px;
+max-width: 1200px;
+margin: 0 auto;
         }
-
-        .feature-card {
-            text-align: center;
-            padding: 40px 30px;
-            border-radius: 20px;
-            background: #fafafa;
-            transition: all 0.3s;
+.feature-card {
+text-align: center;
+padding: 40px 30px;
+border-radius: 20px;
+background: #fafafa;
+transition: all 0.3s;
         }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+.feature-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 15px 40px rgba(0,0,0,0.08);
         }
-
-        .feature-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #fff5f7 0%, #fef3e2 100%);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px;
-            font-size: 32px;
+.feature-icon {
+width: 70px;
+height: 70px;
+background: linear-gradient(135deg, #fff5f7 0%, #fef3e2 100%);
+border-radius: 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 0 auto 25px;
+font-size: 32px;
         }
-
-        .feature-card h3 {
-            color: #2d2d2d;
-            font-size: 20px;
-            margin-bottom: 15px;
-            font-weight: 600;
+.feature-card h3 {
+color: #2d2d2d;
+font-size: 20px;
+margin-bottom: 15px;
+font-weight: 600;
         }
-
-        .feature-card p {
-            color: #666;
-            font-size: 15px;
-            line-height: 1.6;
+.feature-card p {
+color: #666;
+font-size: 15px;
+line-height: 1.6;
         }
-
-        /* Best Sellers Section */
-        .best-sellers {
-            background: linear-gradient(135deg, #fff5f7 0%, #fef3e2 100%);
-            padding: 100px 50px;
+/* Best Sellers Section */
+.best-sellers {
+background: linear-gradient(135deg, #fff5f7 0%, #fef3e2 100%);
+padding: 100px 50px;
         }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
+.section-header {
+text-align: center;
+margin-bottom: 60px;
         }
-
-        .section-header h2 {
-            color: #2d2d2d;
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 15px;
+.section-header h2 {
+color: #2d2d2d;
+font-size: 48px;
+font-weight: 700;
+margin-bottom: 15px;
         }
-
-        .section-header p {
-            color: #666;
-            font-size: 18px;
+.section-header p {
+color: #666;
+font-size: 18px;
         }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+.products-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 30px;
+max-width: 1200px;
+margin: 0 auto;
         }
-
-        .product-card {
-            background: #fff;
-            padding: 50px 30px;
-            text-align: center;
-            border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            transition: all 0.3s;
+.product-card {
+background: #fff;
+padding: 50px 30px;
+text-align: center;
+border-radius: 20px;
+box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+transition: all 0.3s;
         }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+.product-card:hover {
+transform: translateY(-8px);
+box-shadow: 0 15px 40px rgba(0,0,0,0.1);
         }
-
-        .product-icon {
-            font-size: 64px;
-            margin-bottom: 25px;
-            filter: grayscale(20%);
+.product-icon {
+font-size: 64px;
+margin-bottom: 25px;
+filter: grayscale(20%);
         }
-
-        .product-card p {
-            color: #999;
-            font-size: 14px;
-            line-height: 1.6;
+.product-card p {
+color: #999;
+font-size: 14px;
+line-height: 1.6;
         }
-
-        /* Seasonal Sale Section */
-        .seasonal-sale {
-            padding: 100px 50px;
-            background: #2d2d2d;
-            position: relative;
-            overflow: hidden;
+/* Seasonal Sale Section */
+.seasonal-sale {
+padding: 100px 50px;
+background: #2d2d2d;
+position: relative;
+overflow: hidden;
         }
-
-        .seasonal-sale::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(255,107,157,0.15) 0%, transparent 70%);
-            top: -50px;
-            right: 10%;
-            border-radius: 50%;
+.seasonal-sale::before {
+content: '';
+position: absolute;
+width: 300px;
+height: 300px;
+background: radial-gradient(circle, rgba(255,107,157,0.15) 0%, transparent 70%);
+top: -50px;
+right: 10%;
+border-radius: 50%;
         }
-
-        .sale-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            position: relative;
-            z-index: 2;
+.sale-content {
+max-width: 800px;
+margin: 0 auto;
+text-align: center;
+position: relative;
+z-index: 2;
         }
-
-        .sale-content h2 {
-            color: #fff;
-            font-size: 56px;
-            margin-bottom: 20px;
-            font-weight: 700;
+.sale-content h2 {
+color: #fff;
+font-size: 56px;
+margin-bottom: 20px;
+font-weight: 700;
         }
-
-        .sale-content .discount {
-            color: #ff6b9d;
-            font-size: 72px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            text-shadow: 0 0 30px rgba(255, 107, 157, 0.3);
+.sale-content .discount {
+color: #ff6b9d;
+font-size: 72px;
+font-weight: 800;
+margin-bottom: 20px;
+text-shadow: 0 0 30px rgba(255, 107, 157, 0.3);
         }
-
-        .sale-content p {
-            color: #ccc;
-            font-size: 20px;
-            margin-bottom: 40px;
-            line-height: 1.6;
+.sale-content p {
+color: #ccc;
+font-size: 20px;
+margin-bottom: 40px;
+line-height: 1.6;
         }
-
-        .grab-btn {
-            background: #fff;
-            color: #2d2d2d;
-            padding: 18px 50px;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
+.grab-btn {
+background: #fff;
+color: #2d2d2d;
+padding: 18px 50px;
+border: none;
+border-radius: 50px;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s;
         }
-
-        .grab-btn:hover {
-            background: #ff6b9d;
-            color: #fff;
-            transform: scale(1.05);
+.grab-btn:hover {
+background: #ff6b9d;
+color: #fff;
+transform: scale(1.05);
         }
-
-        /* About Section */
-        .about {
-            padding: 100px 50px;
-            background: #fff;
+/* About Section */
+.about {
+padding: 100px 50px;
+background: #fff;
         }
-
-        .about-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
+.about-container {
+max-width: 1200px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 80px;
+align-items: center;
         }
-
-        .about-left h2 {
-            color: #2d2d2d;
-            font-size: 48px;
-            margin-bottom: 25px;
-            font-weight: 700;
-            line-height: 1.2;
+.about-left h2 {
+color: #2d2d2d;
+font-size: 48px;
+margin-bottom: 25px;
+font-weight: 700;
+line-height: 1.2;
         }
-
-        .about-left p {
-            color: #666;
-            font-size: 16px;
-            line-height: 1.8;
-            margin-bottom: 35px;
+.about-left p {
+color: #666;
+font-size: 16px;
+line-height: 1.8;
+margin-bottom: 35px;
         }
-
-        .learn-btn {
-            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
-            color: #fff;
-            padding: 16px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
+.learn-btn {
+background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+color: #fff;
+padding: 16px 40px;
+border: none;
+border-radius: 50px;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s;
+box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
         }
-
-        .learn-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(255, 107, 157, 0.4);
+.learn-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 12px 35px rgba(255, 107, 157, 0.4);
         }
-
-        .about-right {
-            height: 500px;
-            background: linear-gradient(135deg, #fff5f7 0%, #fef3e2 100%);
-            border-radius: 30px;
-            position: relative;
-            overflow: hidden;
+.about-right {
+height: 500px;
+background: linear-gradient(135deg, #fff5f7 0%, #fef3e2 100%);
+border-radius: 30px;
+position: relative;
+overflow: hidden;
         }
-
-        .about-right::after {
-            content: '🎉';
-            position: absolute;
-            font-size: 200px;
-            opacity: 0.1;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+.about-right::after {
+content: '🎉';
+position: absolute;
+font-size: 200px;
+opacity: 0.1;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
         }
-
-        /* Gallery Section */
-        .gallery {
-            background: linear-gradient(135deg, #fff5f7 0%, #fef3e2 100%);
-            padding: 100px 50px;
+/* Gallery Section */
+.gallery {
+background: linear-gradient(135deg, #fff5f7 0%, #fef3e2 100%);
+padding: 100px 50px;
         }
-
-        .gallery h2 {
-            color: #2d2d2d;
-            font-size: 48px;
-            margin-bottom: 50px;
-            font-weight: 700;
-            text-align: center;
+.gallery h2 {
+color: #2d2d2d;
+font-size: 48px;
+margin-bottom: 50px;
+font-weight: 700;
+text-align: center;
         }
-
-        .gallery-images {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+.gallery-images {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+gap: 30px;
+max-width: 1200px;
+margin: 0 auto;
         }
-
-        .gallery-images img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s;
+.gallery-images img {
+width: 100%;
+height: 400px;
+object-fit: cover;
+border-radius: 20px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+transition: all 0.3s;
         }
-
-        .gallery-images img:hover {
-            transform: scale(1.02);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+.gallery-images img:hover {
+transform: scale(1.02);
+box-shadow: 0 15px 40px rgba(0,0,0,0.15);
         }
-
-        /* Footer */
-        footer {
-            background: #2d2d2d;
-            color: #fff;
-            padding: 80px 50px 30px;
+/* Footer */
+footer {
+background: #2d2d2d;
+color: #fff;
+padding: 80px 50px 30px;
         }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 2fr;
-            gap: 50px;
-            margin-bottom: 50px;
-            max-width: 1200px;
-            margin: 0 auto 50px;
+.footer-content {
+display: grid;
+grid-template-columns: 2fr 1fr 1fr 2fr;
+gap: 50px;
+margin-bottom: 50px;
+max-width: 1200px;
+margin: 0 auto 50px;
         }
-
-        .footer-section h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            font-weight: 600;
-            color: #fff;
+.footer-section h3 {
+font-size: 24px;
+margin-bottom: 20px;
+font-weight: 600;
+color: #fff;
         }
-
-        .footer-section p,
-        .footer-section a {
-            color: #aaa;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 12px;
-            font-size: 14px;
-            line-height: 1.6;
+.footer-section p,
+.footer-section a {
+color: #aaa;
+text-decoration: none;
+display: block;
+margin-bottom: 12px;
+font-size: 14px;
+line-height: 1.6;
         }
-
-        .footer-section a:hover {
-            color: #ff6b9d;
+.footer-section a:hover {
+color: #ff6b9d;
         }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
+.social-icons {
+display: flex;
+gap: 15px;
+margin-top: 25px;
         }
-
-        .social-icon {
-            width: 45px;
-            height: 45px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
+.social-icon {
+width: 45px;
+height: 45px;
+background: rgba(255, 255, 255, 0.1);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+transition: all 0.3s;
+font-weight: 600;
         }
-
-        .social-icon:hover {
-            background: #ff6b9d;
-            transform: translateY(-3px);
+.social-icon:hover {
+background: #ff6b9d;
+transform: translateY(-3px);
         }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 30px;
-            text-align: center;
-            color: #888;
-            font-size: 13px;
-            max-width: 1200px;
-            margin: 50px auto 0;
+.footer-bottom {
+border-top: 1px solid rgba(255, 255, 255, 0.1);
+padding-top: 30px;
+text-align: center;
+color: #888;
+font-size: 13px;
+max-width: 1200px;
+margin: 50px auto 0;
         }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 42px;
+/* Mobile Styles */
+@media (max-width: 768px) {
+nav {
+padding: 15px 25px;
             }
-            
-            .hero-buttons {
-                flex-direction: column;
+.hamburger {
+display: flex;
             }
-            
-            .about-container {
-                grid-template-columns: 1fr;
-                gap: 40px;
+.nav-links {
+position: fixed;
+top: 70px;
+right: -100%;
+width: 70%;
+height: calc(100vh - 70px);
+background: rgba(255, 255, 255, 0.98);
+backdrop-filter: blur(10px);
+flex-direction: column;
+padding: 40px 30px;
+gap: 25px;
+box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+transition: right 0.3s ease;
             }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
+.nav-links.active {
+right: 0;
             }
-            
-            .gallery-images {
-                grid-template-columns: 1fr;
+.nav-links a {
+font-size: 18px;
+padding: 10px 0;
+border-bottom: 1px solid #f0f0f0;
+            }
+.hero {
+padding-top: 70px;
+padding-left: 20px;
+padding-right: 20px;
+min-height: 90vh;
+            }
+.hero-content {
+padding: 20px;
+            }
+.hero h1 {
+font-size: 42px;
+            }
+.hero p {
+font-size: 16px;
+margin-bottom: 30px;
+            }
+.hero-buttons {
+flex-direction: column;
+width: 100%;
+            }
+.hero-buttons button {
+width: 100%;
+            }
+.features {
+padding: 60px 25px;
+            }
+.features-grid {
+grid-template-columns: 1fr;
+gap: 30px;
+            }
+.best-sellers {
+padding: 60px 25px;
+            }
+.section-header h2 {
+font-size: 36px;
+            }
+.section-header p {
+font-size: 16px;
+            }
+.products-grid {
+grid-template-columns: 1fr;
+            }
+.seasonal-sale {
+padding: 60px 25px;
+            }
+.sale-content h2 {
+font-size: 36px;
+            }
+.sale-content .discount {
+font-size: 56px;
+            }
+.sale-content p {
+font-size: 16px;
+            }
+.about {
+padding: 60px 25px;
+            }
+.about-container {
+grid-template-columns: 1fr;
+gap: 40px;
+            }
+.about-left h2 {
+font-size: 36px;
+            }
+.about-right {
+height: 300px;
+            }
+.gallery {
+padding: 60px 25px;
+            }
+.gallery h2 {
+font-size: 36px;
+            }
+.gallery-images {
+grid-template-columns: 1fr;
+gap: 20px;
+            }
+.gallery-images img {
+height: 300px;
+            }
+footer {
+padding: 60px 25px 30px;
+            }
+.footer-content {
+grid-template-columns: 1fr;
+gap: 40px;
             }
         }
-    </style>
+@media (max-width: 480px) {
+.hero h1 {
+font-size: 32px;
+            }
+.hero p {
+font-size: 14px;
+            }
+.section-header h2 {
+font-size: 28px;
+            }
+.sale-content h2 {
+font-size: 28px;
+            }
+.sale-content .discount {
+font-size: 42px;
+            }
+.about-left h2 {
+font-size: 28px;
+            }
+.gallery h2 {
+font-size: 28px;
+            }
+        }
+</style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">Sai Decoration Party</div>
-        <ul class="nav-links">
-            <li><a href="#home" class="active">Home</a></li>
-            <li><a href="#top-sellers">Top Sellers</a></li>
-            <li><a href="#promotion">Promotion</a></li>
-            <li><a href="#about">About</a></li>
-        </ul>
-    </nav>
+<!-- Navigation -->
+<nav>
+<div class="logo">Sai Decoration Party</div>
+<div class="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+<ul class="nav-links">
+<li><a href="#home" class="active">Home</a></li>
+<li><a href="#top-sellers">Top Sellers</a></li>
+<li><a href="#promotion">Promotion</a></li>
+<li><a href="#about">About</a></li>
+</ul>
+</nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <div class="hero-badge">✨ Making Moments Magical</div>
-            <h1>Elevate Every Occasion</h1>
-            <p>Transform your celebrations with our curated collection of premium party decorations and creative stationery essentials</p>
-            <div class="hero-buttons">
-                <button class="shop-btn">Shop Now</button>
-                <button class="explore-btn-hero">Explore Collection</button>
-            </div>
-        </div>
-    </section>
+<!-- Hero Section -->
+<section class="hero" id="home">
+<div class="hero-content">
+<div class="hero-badge">✨ Making Moments Magical</div>
+<h1>Elevate Every Occasion</h1>
+<p>Transform your celebrations with our curated collection of premium party decorations and creative stationery essentials</p>
+<div class="hero-buttons">
+<button class="shop-btn">Shop Now</button>
+<button class="explore-btn-hero">Explore Collection</button>
+</div>
+</div>
+</section>
 
-    <!-- Features -->
-    <section class="features">
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🎨</div>
-                <h3>Creative Designs</h3>
-                <p>Unique and stylish decorations that make your events stand out</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>Quick Service</h3>
-                <p>Fast and reliable service to meet your party needs on time</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💎</div>
-                <h3>Premium Quality</h3>
-                <p>Top-quality products that add elegance to every celebration</p>
-            </div>
-        </div>
-    </section>
+<!-- Features -->
+<section class="features">
+<div class="features-grid">
+<div class="feature-card">
+<div class="feature-icon">🎨</div>
+<h3>Creative Designs</h3>
+<p>Unique and stylish decorations that make your events stand out</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">⚡</div>
+<h3>Quick Service</h3>
+<p>Fast and reliable service to meet your party needs on time</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">💎</div>
+<h3>Premium Quality</h3>
+<p>Top-quality products that add elegance to every celebration</p>
+</div>
+</div>
+</section>
 
-    <!-- Best Sellers Section -->
-    <section class="best-sellers" id="top-sellers">
-        <div class="section-header">
-            <h2>Best Sellers</h2>
-            <p>Discover our most loved party essentials</p>
-        </div>
-        <div class="products-grid">
-            <div class="product-card">
-                <div class="product-icon">🎈</div>
-                <p>Coming soon! Our best-selling products will be available shortly</p>
-            </div>
-            <div class="product-card">
-                <div class="product-icon">🎀</div>
-                <p>Coming soon! Our best-selling products will be available shortly</p>
-            </div>
-            <div class="product-card">
-                <div class="product-icon">✨</div>
-                <p>Coming soon! Our best-selling products will be available shortly</p>
-            </div>
-            <!-- <div class="product-card">
-                <div class="product-icon">🎊</div>
-                <p>Coming soon! Our best-selling products will be available shortly</p>
-            </div> -->
-        </div>
-    </section>
+<!-- Best Sellers Section -->
+<section class="best-sellers" id="top-sellers">
+<div class="section-header">
+<h2>Best Sellers</h2>
+<p>Discover our most loved party essentials</p>
+</div>
+<div class="products-grid">
+<div class="product-card">
+<div class="product-icon">🎈</div>
+<p>Coming soon! Our best-selling products will be available shortly</p>
+</div>
+<div class="product-card">
+<div class="product-icon">🎀</div>
+<p>Coming soon! Our best-selling products will be available shortly</p>
+</div>
+<div class="product-card">
+<div class="product-icon">✨</div>
+<p>Coming soon! Our best-selling products will be available shortly</p>
+</div>
+</div>
+</section>
 
-    <!-- Seasonal Sale Section -->
-    <section class="seasonal-sale" id="promotion">
-        <div class="sale-content">
-            <h2>Seasonal Sale</h2>
-            <div class="discount">30% OFF</div>
-            <p>Discover our collection of exclusive party items with seasonal discounts and make your celebrations unforgettable!</p>
-            <button class="grab-btn">Grab Yours Now</button>
-        </div>
-    </section>
+<!-- Seasonal Sale Section -->
+<section class="seasonal-sale" id="promotion">
+<div class="sale-content">
+<h2>Seasonal Sale</h2>
+<div class="discount">30% OFF</div>
+<p>Discover our collection of exclusive party items with seasonal discounts and make your celebrations unforgettable!</p>
+<button class="grab-btn">Grab Yours Now</button>
+</div>
+</section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="about-container">
-            <div class="about-left">
-                <h2>Creating Beautiful Memories</h2>
-                <p>Sai Decoration Party is your go-to destination for top-quality party decoration items and stationery in Goregaon, Mumbai. We specialize in making your special events memorable with stylish and creative decor solutions. Our extensive range ensures that regardless of the occasion, we have something unique for everyone.</p>
-                <button class="learn-btn">Learn More</button>
-            </div>
-            <div class="about-right"></div>
-        </div>
-    </section>
+<!-- About Section -->
+<section class="about" id="about">
+<div class="about-container">
+<div class="about-left">
+<h2>Creating Beautiful Memories</h2>
+<p>Sai Decoration Party is your go-to destination for top-quality party decoration items and stationery in Goregaon, Mumbai. We specialize in making your special events memorable with stylish and creative decor solutions. Our extensive range ensures that regardless of the occasion, we have something unique for everyone.</p>
+<button class="learn-btn">Learn More</button>
+</div>
+<div class="about-right"></div>
+</div>
+</section>
 
-    <!-- Gallery Section -->
-    <section class="gallery">
-        <h2>Follow Our Journey</h2>
-        <div class="gallery-images">
-            <img src="./assets/birthday.jpg" alt="Birthday decoration">
-            <img src="./assets/bday.jpg" alt="Birthday celebration">
-            <img src="./assets/bday2.png" alt="Birthday party">
-        </div>
-    </section>
+<!-- Gallery Section -->
+<section class="gallery">
+<h2>Follow Our Journey</h2>
+<div class="gallery-images">
+<img src="./assets/birthday.jpg" alt="Birthday decoration">
+<img src="./assets/bday.jpg" alt="Birthday celebration">
+<img src="./assets/bday2.png" alt="Birthday party">
+</div>
+</section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Sai Decoration Party</h3>
-                <p>Making every celebration memorable with style and creativity</p>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p><a href="tel:9369169993">+91 9369169993</a></p>
-                <p><a href="mailto:info@mysite.com">info@mysite.com</a></p>
-                <div class="social-icons">
-                    <div class="social-icon">f</div>
-                    <div class="social-icon">in</div>
-                    <div class="social-icon">x</div>
-                    <div class="social-icon">p</div>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Shipping Policy</a>
-                <a href="#">Terms & Conditions</a>
-                <a href="/return.html">Return Policy</a>
-            </div>
-            <div class="footer-section">
-                <h3>Visit Us</h3>
-                <p>Shop No. 04, Opp. Oberoi Mall, Gen. A. K. V. Marg, Goregaon (E), Mumbai, Maharashtra 400063</p>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.4789234567!2d72.8591093!3d19.1743385!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b78272f0b2c1%3A0x9a3a1350eef6518f!2sSai%20Decoration%20Party!5e0!3m2!1sen!2sin!4v1728389000000!5m2!1sen!2sin" width="100%" height="140" style="border:0; border-radius: 12px; margin-top: 15px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2025 by Sai Decoration Party. All rights reserved.</p>
-        </div>
-    </footer>
+<!-- Footer -->
+<footer>
+<div class="footer-content">
+<div class="footer-section">
+<h3>Sai Decoration Party</h3>
+<p>Making every celebration memorable with style and creativity</p>
+</div>
+<div class="footer-section">
+<h3>Contact</h3>
+<p><a href="tel:9369169993">+91 9369169993</a></p>
+<p><a href="mailto:info@mysite.com">info@mysite.com</a></p>
+<div class="social-icons">
+<div class="social-icon">f</div>
+<div class="social-icon">in</div>
+<div class="social-icon">x</div>
+<div class="social-icon">p</div>
+</div>
+</div>
+<div class="footer-section">
+<h3>Quick Links</h3>
+<a href="#">Privacy Policy</a>
+<a href="#">Shipping Policy</a>
+<a href="#">Terms & Conditions</a>
+<a href="/return.html">Return Policy</a>
+</div>
+<div class="footer-section">
+<h3>Visit Us</h3>
+<p>Shop No. 04, Opp. Oberoi Mall, Gen. A. K. V. Marg, Goregaon (E), Mumbai, Maharashtra 400063</p>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.4789234567!2d72.8591093!3d19.1743385!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b78272f0b2c1%3A0x9a3a1350eef6518f!2sSai%20Decoration%20Party!5e0!3m2!1sen!2sin!4v1728389000000!5m2!1sen!2sin" width="100%" height="140" style="border:0; border-radius: 12px; margin-top: 15px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© 2025 by <Sai Decoration Party>. All rights reserved.</p>
+</div>
+</footer>
 
-    <script>
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+<script>
+// Hamburger menu toggle
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+hamburger.addEventListener('click', () => {
+hamburger.classList.toggle('active');
+navLinks.classList.toggle('active');
+        });
+
+// Close menu when clicking on a link
+document.querySelectorAll('.nav-links a').forEach(link => {
+link.addEventListener('click', () => {
+hamburger.classList.remove('active');
+navLinks.classList.remove('active');
+            });
+        });
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+hamburger.classList.remove('active');
+navLinks.classList.remove('active');
+            }
+        });
+
+// Smooth scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function (e) {
+e.preventDefault();
+const target = document.querySelector(this.getAttribute('href'));
+if (target) {
+target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
 
-        // Active nav link on scroll
-        window.addEventListener('scroll', () => {
-            let current = '';
-            const sections = document.querySelectorAll('section');
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= sectionTop - 100) {
-                    current = section.getAttribute('id');
+// Active nav link on scroll
+window.addEventListener('scroll', () => {
+let current = '';
+const sections = document.querySelectorAll('section');
+sections.forEach(section => {
+const sectionTop = section.offsetTop;
+const sectionHeight = section.clientHeight;
+if (pageYOffset >= sectionTop - 100) {
+current = section.getAttribute('id');
                 }
             });
-
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
+document.querySelectorAll('.nav-links a').forEach(link => {
+link.classList.remove('active');
+if (link.getAttribute('href') === `#${current}`) {
+link.classList.add('active');
                 }
             });
         });
-    </script>
+
+// Make buttons functional
+document.querySelectorAll('.shop-btn, .explore-btn-hero, .grab-btn, .learn-btn').forEach(button => {
+button.addEventListener('click', () => {
+// Scroll to top sellers section
+document.querySelector('#top-sellers').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+</script>
 </body>
 </html>
